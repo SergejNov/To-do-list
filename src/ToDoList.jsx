@@ -1,23 +1,36 @@
-import { useState } from 'react'
-import './ToDo.css'
+import { useState } from 'react';
+import './ToDo.css';
 
 export default function ToDoList(){
-    const [toDo, setToDo] = useState()
+    const [todos, setTodos] = useState([
+  { id: 1, text: "Task 1", completed: true },
+  { id: 2, text: "Task 2", completed: false }
+]);
 
+ const [newTodos, setnewTodos] = useState("");
+
+
+ const handleInputChange = (e)=>{
+    setnewTodos(e.target.value);
+}
 
     return (<>
     <div className='main-container'>
     <div className="todo-container">
-        <h1>To Do List!</h1>
+        <h1>To-do List!</h1>
         <ul>
-            <li>thing1</li>
-            <li>thing2</li>
+            {
+            todos.map((item, id)=>{
+               return <li key={id}>{item.text}</li>     
+            })
+            }
         </ul>
     </div>
     <div className='input-container'>
-        <h2>Add items to the To Do List.</h2>
-        <input type="text" placeholder="Feed the chickens" />
+        <h2>Add tasks to the To-do List.</h2>
+        <input type="text" placeholder="Feed the chickens" onChange={handleInputChange} />
+        <button>Add task</button>
     </div>
     </div>
-    </>)
+    </>);
 }
