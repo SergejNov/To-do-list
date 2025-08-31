@@ -1,33 +1,36 @@
 .main-container{
     display: flex;
-     flex-direction: row;
+    flex-direction: row;
     justify-content: space-between; 
     align-items: center;
-     box-sizing: border-box;
-
-   /* border: 3px solid white; */
-    min-width: 400px;
+    box-sizing: border-box;
+    max-width: 100%; 
+    margin: 0 auto;
     min-height:600px ;
     border-radius: 1rem;
+    min-width: 0;
 }
 
 
 .todo-container {
     border: 3px solid white;
     background-color: rgb(138, 154, 45);
-    min-width: 300px;
     min-height:500px ;
     border-radius: 1rem;
     margin-right: 20px;
+    min-width: 0;
+    width: 90%
 }
 
 .input-container{
-     border: 3px solid white;
+    border: 3px solid white;
     background-color: rgb(138, 154, 45);
-    min-width: 300px;
     min-height:120px ;
     border-radius: 1rem;
     padding: 20px;
+    min-width: 0; 
+    width: 90%; 
+    margin-bottom: 1rem;
 }
 
 input {
@@ -51,7 +54,15 @@ input:focus {
 .task-text{
   font-size: 2rem;
   margin-right: 0.5rem;
+  word-wrap: break-word;  
+  overflow-wrap: break-word; 
+  white-space: normal;
+  max-width: 90%; 
+  
+}
 
+.task-text:hover{
+  cursor: pointer;
 }
 
 .input-field{
@@ -64,6 +75,8 @@ input:focus {
   justify-content: center;
   align-items: center;
   margin: 1rem;
+  max-width: 100%; 
+  flex-wrap: wrap;
 }
 
 
@@ -98,6 +111,7 @@ input:focus {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 1rem;
 
     width: 4.5rem;
     height: 2.4rem;
@@ -123,3 +137,31 @@ input:focus {
   opacity: 0.7; 
   
 }
+
+@media(max-width: 768px){
+  .main-container{
+    flex-direction: column;
+  }
+    .todo-container {
+    margin-right: 0;
+    margin-bottom: 20px;
+    order: 2;
+  }
+
+  .input-container {
+    order: 1;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .main-container {
+  
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+ .task-text{
+  max-width: 200px;
+ }
+
+ }
