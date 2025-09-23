@@ -273,10 +273,22 @@ export default function ToDoList(){
                         sx: {
                           textDecoration: item.completed ? 'line-through' : 'none',
                           color: item.completed ? 'text.secondary' : 'text.primary',
+                          wordWrap: 'break-word',
+                          overflowWrap: 'break-word',
+                          wordBreak: 'break-word',
+                          whiteSpace: 'normal',
+                          maxWidth: '100%',
                         }
                       }}
                       onClick={() => toggleComplete(item.id)}
-                      sx={{ cursor: 'pointer' }}
+                      sx={{ 
+                        cursor: 'pointer',
+                        width: '100%',
+                        '& .MuiListItemText-primary': {
+                          wordBreak: 'break-word',
+                          overflowWrap: 'break-word',
+                        }
+                      }}
                     />
                     <ListItemSecondaryAction>
                       <IconButton

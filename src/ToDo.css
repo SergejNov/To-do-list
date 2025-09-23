@@ -8,32 +8,35 @@
     box-sizing: border-box;
     max-width: 100%; 
     margin: 0 auto;
-    min-height:600px ;
+    min-height: 600px;
     border-radius: 1rem;
     min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 }
 
 
 .todo-container {
     border: 3px solid white;
     background-color: rgb(138, 154, 45);
-    min-height:500px ;
+    min-height: 500px;
     border-radius: 1rem;
-    /* margin-right: 20px; */
     min-width: 0;
-    /* padding: 20px; */
-    width: 100%
+    width: 100%;
+    overflow: hidden;
 }
 
 .input-container{
     border: 3px solid white;
     background-color: rgb(138, 154, 45);
-    min-height:120px ;
+    min-height: 120px;
     border-radius: 1rem;
-    /* padding: 20px; */
     min-width: 0; 
     width: 100%; 
     margin-bottom: 1rem;
+    overflow: hidden;
 }
 
 .code-section {
@@ -61,6 +64,9 @@
     font-weight: bold;
     letter-spacing: 2px;
     font-size: 1.8rem;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .code-actions {
@@ -69,6 +75,15 @@
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 15px;
+}
+
+/* Add this new rule for list items */
+.todo-item {
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    padding: 8px 0;
 }
 
 .share-button, .new-list-button, .join-button {
