@@ -2,7 +2,7 @@
 
 .main-container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between; 
     align-items: center;
     box-sizing: border-box;
@@ -19,9 +19,10 @@
     background-color: rgb(138, 154, 45);
     min-height:500px ;
     border-radius: 1rem;
-    margin-right: 20px;
+    /* margin-right: 20px; */
     min-width: 0;
-    width: 90%
+    /* padding: 20px; */
+    width: 100%
 }
 
 .input-container{
@@ -29,10 +30,111 @@
     background-color: rgb(138, 154, 45);
     min-height:120px ;
     border-radius: 1rem;
-    padding: 20px;
+    /* padding: 20px; */
     min-width: 0; 
-    width: 90%; 
+    width: 100%; 
     margin-bottom: 1rem;
+}
+
+.code-section {
+    border: 3px solid white;
+    background-color: rgb(45, 138, 154);
+    min-height: 120px;
+    border-radius: 1rem;
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.current-code h2 {
+    color: white;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.code-display {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 1.8rem;
+}
+
+.code-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.share-button, .new-list-button, .join-button {
+    color: white;
+    background-color: rgb(30, 100, 120);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 0.9em;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.share-button:hover, .new-list-button:hover, .join-button:hover {
+    border-color: lightblue;
+    box-shadow: 0 0 8px rgba(173, 216, 230, 0.6);
+    color: lightblue;
+    transform: translateY(-2px);
+}
+
+.join-section {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.code-input {
+    width: 120px !important;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    /* letter-spacing: 2px; */
+    text-transform: uppercase;
+}
+
+.join-submit-button {
+    color: white;
+    background-color: rgb(50, 150, 50);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 0.9em;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.join-submit-button:hover {
+    border-color: lightgreen;
+    box-shadow: 0 0 8px rgba(144, 238, 144, 0.6);
+    color: lightgreen;
+    transform: translateY(-2px);
+}
+
+.empty-state {
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 2rem;
+    opacity: 0.8;
 }
 
 input {
@@ -147,7 +249,13 @@ input:focus {
     .todo-container {
     margin-right: 0;
     margin-bottom: 20px;
-    order: 2;
+    order: 3;
+  }
+
+  .code-section {
+    order: 0;
+    max-width: 100%;
+    margin-bottom: 1rem;
   }
 
   .input-container {
@@ -164,6 +272,21 @@ input:focus {
 
  .task-text{
   max-width: 200px;
+ }
+
+ .code-actions {
+   flex-direction: column;
+   gap: 8px;
+ }
+
+ .join-section {
+   flex-direction: column;
+   gap: 8px;
+ }
+
+ .code-display {
+   font-size: 1.4rem;
+   letter-spacing: 1px;
  }
 
  }
