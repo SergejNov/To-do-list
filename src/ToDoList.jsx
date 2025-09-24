@@ -256,6 +256,7 @@ export default function ToDoList(){
                   label={`Code: ${currentCode}`} 
                   color="primary" 
                   variant="outlined"
+                  onClick={copyShareLink}
                   sx={{ fontSize: '1.2rem', p: 1,
                     width: { xs: 'auto', sm: 'auto' },
                     minWidth: { xs: '160px', sm: '140px' },
