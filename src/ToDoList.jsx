@@ -226,24 +226,41 @@ export default function ToDoList(){
             <Typography 
               variant="subtitle1"
               sx={{
-                maxWidth: '600px',
+                maxWidth: '520px',
                 mx: 'auto',
                 lineHeight: 1.6,
                 opacity: 0.9
               }}
             >
-              Add your tasks to this shared list. Share the link with others to collaborate in real-time!
+              Add your tasks to this list and share the link with others to collaborate in real-time!
             </Typography>
+            
           </Box>
 
           <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+              <Box sx={{ 
+                display: 'flex', 
+                flexDirection: { xs: 'column', sm: 'row' },
+                alignItems: 'center', 
+                gap: 2, 
+                flexWrap: 'wrap',
+                '& > *': {
+                  width: { xs: '100%', sm: 'auto' },
+                  '& button': {
+                    width: { xs: '100%', sm: 'auto' },
+                  }
+                }
+              }}>
                 <Chip 
                   label={`Code: ${currentCode}`} 
                   color="primary" 
                   variant="outlined"
-                  sx={{ fontSize: '1.2rem', p: 1 }}
+                  sx={{ fontSize: '1.2rem', p: 1,
+                    width: { xs: 'auto', sm: 'auto' },
+                    minWidth: { xs: '160px', sm: '140px' },
+
+                   }}
                 />
                 <Box sx={{ flexGrow: 1 }} />
                 <Button 
@@ -251,7 +268,15 @@ export default function ToDoList(){
                   color="primary" 
                   startIcon={<CopyIcon />}
                   onClick={copyShareLink}
-                  sx={{ textTransform: 'none' }}
+                  sx={{ 
+                    textTransform: 'none',
+                    width: { xs: 'auto', sm: 'auto' },
+                    minWidth: { xs: '160px', sm: '140px' },
+                    px: 3,
+                    py: 1,
+                    height: '40px',
+                    alignSelf: { xs: 'center', sm: 'center' }
+                  }}
                 >
                   Copy Link
                 </Button>
@@ -260,7 +285,15 @@ export default function ToDoList(){
                   color="primary" 
                   startIcon={<RefreshIcon />}
                   onClick={createNewList}
-                  sx={{ textTransform: 'none' }}
+                  sx={{ 
+                    textTransform: 'none',
+                    width: { xs: 'auto', sm: 'auto' },
+                    minWidth: { xs: '160px', sm: '140px' },
+                    px: 3,
+                    py: 1,
+                    height: '40px',
+                    alignSelf: { xs: 'center', sm: 'center' }
+                  }}
                 >
                   New List
                 </Button>
@@ -269,7 +302,15 @@ export default function ToDoList(){
                   color="primary" 
                   startIcon={<LinkIcon />}
                   onClick={() => setShowCodeInput(!showCodeInput)}
-                  sx={{ textTransform: 'none' }}
+                  sx={{ 
+                    textTransform: 'none',
+                    width: { xs: 'auto', sm: 'auto' },
+                    minWidth: { xs: '160px', sm: '140px' },
+                    px: 3,
+                    py: 1,
+                    height: '40px',
+                    alignSelf: { xs: 'center', sm: 'center' }
+                  }}
                 >
                   Join List
                 </Button>
@@ -283,13 +324,29 @@ export default function ToDoList(){
                     value={inputCode}
                     onChange={(e) => setInputCode(e.target.value.toUpperCase())}
                     inputProps={{ maxLength: 4, style: { textTransform: 'uppercase' } }}
-                    sx={{ flexGrow: 1, maxWidth: 200 }}
+                    sx={{ 
+                      textTransform: 'none',
+                      width: { xs: 'auto', sm: 'auto' },
+                      minWidth: { xs: '160px', sm: '140px' },
+                      px: 3,
+                      py: 1,
+                      height: '40px',
+                      alignSelf: { xs: 'center', sm: 'center' }
+                    }}
                   />
                   <Button 
                     variant="contained" 
                     color="primary" 
                     onClick={handleJoinList}
-                    sx={{ textTransform: 'none' }}
+                    sx={{ 
+                      textTransform: 'none',
+                      width: { xs: 'auto', sm: 'auto' },
+                      minWidth: { xs: '160px', sm: '140px' },
+                      px: 3,
+                      py: 1,
+                      height: '40px',
+                      alignSelf: { xs: 'center', sm: 'center' }
+                    }}
                   >
                     Join
                   </Button>
@@ -299,22 +356,44 @@ export default function ToDoList(){
           </Paper>
       
           <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
-            <Box sx={{ display: 'flex', gap: 2, mb: 2, flexWrap: 'wrap' }}>
+            <Box sx={{ 
+              display: 'flex', 
+              flexDirection: { xs: 'column', sm: 'row' }, 
+              gap: 2, 
+              mb: 2,
+              alignItems: 'center',
+              justifyContent: 'center',
+              '& > *': {
+                width: { xs: 'auto', sm: 'auto' },
+                flexShrink: 0
+              }
+            }}>
               <TextField
-                fullWidth
                 size="small"
                 label="Add a new task"
                 value={newTodo}
                 onChange={handleInputChange}
                 onKeyPress={(e) => e.key === 'Enter' && addTask()}
-                sx={{ flexGrow: 1, maxWidth: 500 }}
+                sx={{ 
+                  width: { xs: '100%', sm: 300 },
+                  '& .MuiOutlinedInput-root': {
+                    height: '40px'
+                  }
+                }}
               />
               <Button 
                 variant="contained" 
                 color="primary" 
                 startIcon={<AddIcon />}
                 onClick={addTask}
-                sx={{ textTransform: 'none' }}
+                sx={{ 
+                  textTransform: 'none',
+                  minWidth: '140px',
+                  height: '40px',
+                  px: 3,
+                  py: 1,
+                  whiteSpace: 'nowrap'
+                }}
               >
                 Add Task
               </Button>
