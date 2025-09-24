@@ -40,6 +40,12 @@ const theme = createTheme({
           textTransform: 'none',
           padding: '8px 16px',
         },
+        outlined: {
+          '&:hover': {
+            borderColor: '#2e7d32', // Green border on hover
+            backgroundColor: 'rgba(46, 125, 50, 0.08)', // Slight green tint on hover
+          },
+        },
       },
     },
     MuiChip: {

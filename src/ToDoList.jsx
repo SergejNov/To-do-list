@@ -187,7 +187,7 @@ export default function ToDoList(){
             open={toast.open}
             autoHideDuration={3000}
             onClose={handleCloseToast}
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           >
             <Alert 
               onClose={handleCloseToast} 
