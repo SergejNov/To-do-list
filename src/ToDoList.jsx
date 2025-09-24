@@ -28,7 +28,9 @@ import {
     DialogContentText,
     DialogActions,
     Slide,
-    Divider
+    Divider,
+    Snackbar,
+    Alert
   } from '@mui/material';
 
   import {
@@ -55,6 +57,7 @@ export default function ToDoList(){
     const [openDialog, setOpenDialog] = useState(false);
     const [dialogTitle, setDialogTitle] = useState('');
     const [dialogMessage, setDialogMessage] = useState('');
+    const [toast, setToast] = useState({ open: false, message: '', severity: 'success' });
 
     // Get code from URL or generate new one
     useEffect(() => {
@@ -158,14 +161,81 @@ export default function ToDoList(){
     const copyShareLink = () => {
         const shareUrl = `${window.location.origin}${window.location.pathname}?code=${currentCode}`;
         navigator.clipboard.writeText(shareUrl).then(() => {
-            showDialog("Copied", "Share link copied to clipboard!");
+            setToast({
+                open: true,
+                message: 'Share link copied to clipboard!',
+                severity: 'success'
+            });
         }).catch(() => {
-            showDialog("Copied", `Share this link: ${shareUrl}`);
+            setToast({
+                open: true,
+                message: 'Failed to copy link. Please try again.',
+                severity: 'error'
+            });
         });
     };
 
+    const handleCloseToast = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setToast(prev => ({ ...prev, open: false }));
+    }
     return (
         <Container maxWidth="md" sx={{ py: 4 }}>
+          <Snackbar
+            open={toast.open}
+            autoHideDuration={3000}
+            onClose={handleCloseToast}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          >
+            <Alert 
+              onClose={handleCloseToast} 
+              severity={toast.severity} 
+              sx={{ width: '100%' }}
+              elevation={6}
+              variant="filled"
+            >
+              {toast.message}
+            </Alert>
+          </Snackbar>
+
+          <Box 
+            textAlign="center" 
+            mb={4}
+            sx={{ 
+              backgroundColor: 'primary.main',
+              color: 'white',
+              p: 3,
+              borderRadius: 1,
+              boxShadow: 3
+            }}
+          >
+            <Typography 
+              variant="h3" 
+              component="h1" 
+              gutterBottom
+              sx={{ 
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
+                letterSpacing: 2
+              }}
+            >
+              To-Do List
+            </Typography>
+            <Typography 
+              variant="subtitle1"
+              sx={{
+                maxWidth: '600px',
+                mx: 'auto',
+                lineHeight: 1.6,
+                opacity: 0.9
+              }}
+            >
+              Add your tasks to this shared list. Share the link with others to collaborate in real-time!
+            </Typography>
+          </Box>
+
           <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
@@ -305,29 +375,29 @@ export default function ToDoList(){
             )}
           </Paper>
           <Dialog
-               open={openDialog}
-               TransitionComponent={Transition}
-               keepMounted
-               onClose={handleCloseDialog}
-               aria-labelledby="alert-dialog-title"
-               aria-describedby="alert-dialog-description"
-               maxWidth="xs"
-               fullWidth
->
-  <DialogTitle id="alert-dialog-title">
-    {dialogTitle}
-  </DialogTitle>
-  <DialogContent>
-    <DialogContentText id="alert-dialog-description">
-      {dialogMessage}
-    </DialogContentText>
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={handleCloseDialog} color="primary" autoFocus>
-      OK
-    </Button>
-  </DialogActions>
-</Dialog>
+            open={openDialog}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleCloseDialog}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            maxWidth="xs"
+            fullWidth
+          >
+            <DialogTitle id="alert-dialog-title">
+              {dialogTitle}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                {dialogMessage}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog} color="primary" autoFocus>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Container>
-      );
+    );
 }
