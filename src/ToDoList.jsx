@@ -297,23 +297,6 @@ export default function ToDoList(){
                 >
                   New List
                 </Button>
-                <Button 
-                  variant="outlined" 
-                  color="primary" 
-                  startIcon={<LinkIcon />}
-                  onClick={() => setShowCodeInput(!showCodeInput)}
-                  sx={{ 
-                    textTransform: 'none',
-                    width: { xs: 'auto', sm: 'auto' },
-                    minWidth: { xs: '160px', sm: '140px' },
-                    px: 3,
-                    py: 1,
-                    height: '40px',
-                    alignSelf: { xs: 'center', sm: 'center' }
-                  }}
-                >
-                  Join List
-                </Button>
               </Box>
       
               {showCodeInput && (
