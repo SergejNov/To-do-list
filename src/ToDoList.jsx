@@ -1,4 +1,5 @@
 import { useState, useEffect, forwardRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import './ToDo.css';
 import { 
   generateCode, 
@@ -59,32 +60,45 @@ export default function ToDoList(){
     const [dialogMessage, setDialogMessage] = useState('');
     const [toast, setToast] = useState({ open: false, message: '', severity: 'success' });
 
+    const { code: codeFromUrl } = useParams();
+    const navigate = useNavigate();
+
     // Get code from URL or generate new one
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const codeFromUrl = urlParams.get('code');
-        
-        if (codeFromUrl && isValidCode(codeFromUrl)) {
-            // Load existing todo list
-            const existingTodos = loadTodosFromStorage(codeFromUrl);
-            if (existingTodos) {
-                setTodos(existingTodos);
-                setCurrentCode(codeFromUrl);
-            } else {
-                // Code doesn't exist, create new list
-                const newCode = generateCode();
-                setCurrentCode(newCode);
-                setTodos([]);
-                updateUrl(newCode);
+        // If there's a code in the URL, validate and handle it
+        if (codeFromUrl) {
+            // Convert to uppercase and validate
+            const upperCode = codeFromUrl.toUpperCase();
+            
+            // If the code is valid and different from what's in the URL (e.g., lowercase), redirect
+            if (isValidCode(upperCode)) {
+                if (upperCode !== codeFromUrl) {
+                    navigate(`/${upperCode}`, { replace: true });
+                    return;
+                }
+                
+                // Load existing todo list
+                const existingTodos = loadTodosFromStorage(upperCode);
+                if (existingTodos) {
+                    setTodos(existingTodos);
+                    setCurrentCode(upperCode);
+                    return;
+                }
             }
-        } else {
-            // Generate new code
+            
+            // If we get here, the code is invalid or doesn't exist
             const newCode = generateCode();
+            navigate(`/${newCode}`, { replace: true });
             setCurrentCode(newCode);
             setTodos([]);
-            updateUrl(newCode);
+        } else {
+            // No code in URL, generate new one and redirect
+            const newCode = generateCode();
+            navigate(`/${newCode}`, { replace: true });
+            setCurrentCode(newCode);
+            setTodos([]);
         }
-    }, []);
+    }, [codeFromUrl, navigate]);
 
     // Save todos whenever they change
     useEffect(() => {
@@ -94,8 +108,7 @@ export default function ToDoList(){
     }, [todos, currentCode]);
 
     const updateUrl = (code) => {
-        const newUrl = `${window.location.pathname}?code=${code}`;
-        window.history.pushState({}, '', newUrl);
+        navigate(`/${code}`, { replace: true });
     };
 
     const handleInputChange = (e) => {
@@ -159,7 +172,7 @@ export default function ToDoList(){
     };
 
     const copyShareLink = () => {
-        const shareUrl = `${window.location.origin}${window.location.pathname}?code=${currentCode}`;
+        const shareUrl = `${window.location.origin}/${currentCode}`;
         navigator.clipboard.writeText(shareUrl).then(() => {
             setToast({
                 open: true,
