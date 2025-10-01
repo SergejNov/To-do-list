@@ -147,24 +147,24 @@ export default function ToDoList(){
         setOpenDialog(false);
       };
 
-    const handleJoinList = () => {
-        if (inputCode && isValidCode(inputCode.toUpperCase())) {
-            const code = inputCode.toUpperCase();
-            const existingTodos = loadTodosFromStorage(code);
+    // const handleJoinList = () => {
+    //     if (inputCode && isValidCode(inputCode.toUpperCase())) {
+    //         const code = inputCode.toUpperCase();
+    //         const existingTodos = loadTodosFromStorage(code);
             
-            if (existingTodos) {
-                setTodos(existingTodos);
-                setCurrentCode(code);
-                updateUrl(code);
-                setInputCode("");
-                setShowCodeInput(false);
-            } else {
-                showDialog("Not Found", "No todo list found with that code!");
-            }
-        } else {
-            showDialog("Invalid Code", "Please enter a valid 4-letter code!");
-        }
-    };
+    //         if (existingTodos) {
+    //             setTodos(existingTodos);
+    //             setCurrentCode(code);
+    //             updateUrl(code);
+    //             setInputCode("");
+    //             setShowCodeInput(false);
+    //         } else {
+    //             showDialog("Not Found", "No todo list found with that code!");
+    //         }
+    //     } else {
+    //         showDialog("Invalid Code", "Please enter a valid 4-letter code!");
+    //     }
+    // };
 
     const createNewList = () => {
         const newCode = generateCode();
@@ -250,7 +250,7 @@ To-Do List
                   }
                 }}
                 title="Scan to open on another device"
-              >
+               >
                 <QRCodeSVG 
                   value={window.location.href} 
                   size={40}
@@ -338,7 +338,7 @@ To-Do List
                 </Button>
               </Box>
       
-              {showCodeInput && (
+              {/* {showCodeInput && (
                 <Box sx={{ display: 'flex', gap: 2, mt: 2, flexWrap: 'wrap' }}>
                   <TextField
                     size="small"
@@ -356,7 +356,7 @@ To-Do List
                       alignSelf: { xs: 'center', sm: 'center' }
                     }}
                   />
-                  <Button 
+                 [ <Button 
                     variant="contained" 
                     color="primary" 
                     onClick={handleJoinList}
@@ -371,9 +371,9 @@ To-Do List
                     }}
                   >
                     Join
-                  </Button>
+                  </Button>]
                 </Box>
-              )}
+              )} */}
             </Box>
           </Paper>
       
