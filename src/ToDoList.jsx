@@ -1,6 +1,8 @@
 import { useState, useEffect, forwardRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { QRCodeSVG } from 'qrcode.react';
 import './ToDo.css';
+import QrCodeIcon from '@mui/icons-material/QrCode';
 import { 
   generateCode, 
   isValidCode, 
@@ -59,6 +61,7 @@ export default function ToDoList(){
     const [dialogTitle, setDialogTitle] = useState('');
     const [dialogMessage, setDialogMessage] = useState('');
     const [toast, setToast] = useState({ open: false, message: '', severity: 'success' });
+    
 
     const { code: codeFromUrl } = useParams();
     const navigate = useNavigate();
@@ -200,7 +203,7 @@ export default function ToDoList(){
             open={toast.open}
             autoHideDuration={3000}
             onClose={handleCloseToast}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           >
             <Alert 
               onClose={handleCloseToast} 
@@ -234,7 +237,28 @@ export default function ToDoList(){
                 letterSpacing: 2
               }}
             >
-              To-Do List
+To-Do List
+              <Box 
+                component="span" 
+                sx={{ 
+                  ml: 2, 
+                  display: 'inline-flex',
+                  verticalAlign: 'middle',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    opacity: 0.8
+                  }
+                }}
+                title="Scan to open on another device"
+              >
+                <QRCodeSVG 
+                  value={window.location.href} 
+                  size={40}
+                  level="H"
+                  fgColor="#ffffff"
+                  bgColor="transparent"
+                />
+              </Box>
             </Typography>
             <Typography 
               variant="subtitle1"
