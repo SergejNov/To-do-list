@@ -2,7 +2,7 @@ import { useState, useEffect, forwardRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 import './ToDo.css';
-import QrCodeIcon from '@mui/icons-material/QrCode';
+// import QrCodeIcon from '@mui/icons-material/QrCode';
 import { 
   generateCode, 
   isValidCode, 
@@ -257,7 +257,7 @@ To-Do List
                   level="H"
                   fgColor="#ffffff"
                   bgColor="transparent"
-                  
+                  onClick={copyShareLink}
                 />
               </Box>
             </Typography>
