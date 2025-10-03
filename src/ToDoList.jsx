@@ -1,14 +1,12 @@
-import { useState, useEffect, forwardRef } from 'react';
+import { useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 import './ToDo.css';
-// import QrCodeIcon from '@mui/icons-material/QrCode';
 import { 
   generateCode, 
   isValidCode, 
   saveTodosToStorage, 
-  loadTodosFromStorage, 
-  todoListExists 
+  loadTodosFromStorage
 } from './utils';
 
 import {
@@ -19,47 +17,30 @@ import {
     List,
     ListItem,
     ListItemText,
-    ListItemSecondaryAction,
     IconButton,
     Typography,
     Box,
-    Grid,
     Chip,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogContentText,
-    DialogActions,
-    Slide,
     Divider,
     Snackbar,
-    Alert
+    Alert,
+    Stack
   } from '@mui/material';
 
   import {
     Delete as DeleteIcon,
     ContentCopy as CopyIcon,
     Add as AddIcon,
-    Check as CheckIcon,
     Refresh as RefreshIcon,
-    Link as LinkIcon
   } from '@mui/icons-material';
 
-  const Transition = forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
-
+  
 
 
 export default function ToDoList(){
     const [todos, setTodos] = useState([]);
     const [newTodo, setnewTodo] = useState("");
     const [currentCode, setCurrentCode] = useState("");
-    const [inputCode, setInputCode] = useState("");
-    const [showCodeInput, setShowCodeInput] = useState(false);
-    const [openDialog, setOpenDialog] = useState(false);
-    const [dialogTitle, setDialogTitle] = useState('');
-    const [dialogMessage, setDialogMessage] = useState('');
     const [toast, setToast] = useState({ open: false, message: '', severity: 'success' });
     
 
@@ -136,35 +117,6 @@ export default function ToDoList(){
     const handleDelete = (id) => {
         setTodos(todos.filter(todo => todo.id !== id));
     };
-
-    const showDialog = (title, message) => {
-        setDialogTitle(title);
-        setDialogMessage(message);
-        setOpenDialog(true);
-      };
-      
-      const handleCloseDialog = () => {
-        setOpenDialog(false);
-      };
-
-    // const handleJoinList = () => {
-    //     if (inputCode && isValidCode(inputCode.toUpperCase())) {
-    //         const code = inputCode.toUpperCase();
-    //         const existingTodos = loadTodosFromStorage(code);
-            
-    //         if (existingTodos) {
-    //             setTodos(existingTodos);
-    //             setCurrentCode(code);
-    //             updateUrl(code);
-    //             setInputCode("");
-    //             setShowCodeInput(false);
-    //         } else {
-    //             showDialog("Not Found", "No todo list found with that code!");
-    //         }
-    //     } else {
-    //         showDialog("Invalid Code", "Please enter a valid 4-letter code!");
-    //     }
-    // };
 
     const createNewList = () => {
         const newCode = generateCode();
@@ -337,43 +289,6 @@ To-Do List
                   New List
                 </Button>
               </Box>
-      
-              {/* {showCodeInput && (
-                <Box sx={{ display: 'flex', gap: 2, mt: 2, flexWrap: 'wrap' }}>
-                  <TextField
-                    size="small"
-                    label="Enter code"
-                    value={inputCode}
-                    onChange={(e) => setInputCode(e.target.value.toUpperCase())}
-                    inputProps={{ maxLength: 4, style: { textTransform: 'uppercase' } }}
-                    sx={{ 
-                      textTransform: 'none',
-                      width: { xs: 'auto', sm: 'auto' },
-                      minWidth: { xs: '160px', sm: '140px' },
-                      px: 3,
-                      py: 1,
-                      height: '40px',
-                      alignSelf: { xs: 'center', sm: 'center' }
-                    }}
-                  />
-                 [ <Button 
-                    variant="contained" 
-                    color="primary" 
-                    onClick={handleJoinList}
-                    sx={{ 
-                      textTransform: 'none',
-                      width: { xs: 'auto', sm: 'auto' },
-                      minWidth: { xs: '160px', sm: '140px' },
-                      px: 3,
-                      py: 1,
-                      height: '40px',
-                      alignSelf: { xs: 'center', sm: 'center' }
-                    }}
-                  >
-                    Join
-                  </Button>]
-                </Box>
-              )} */}
             </Box>
           </Paper>
       
@@ -395,7 +310,7 @@ To-Do List
                 label="Add a new task"
                 value={newTodo}
                 onChange={handleInputChange}
-                onKeyPress={(e) => e.key === 'Enter' && addTask()}
+                onKeyDown={(e) => e.key === 'Enter' && addTask()}
                 sx={{ 
                   width: { xs: '100%', sm: 300 },
                   '& .MuiOutlinedInput-root': {
@@ -420,9 +335,9 @@ To-Do List
                 Add Task
               </Button>
             </Box>
-      
+
             <Divider sx={{ my: 2 }} />
-      
+
             {todos.length === 0 ? (
               <Typography variant="body1" color="text.secondary" textAlign="center" py={4}>
                 No tasks yet. Add one above!
@@ -433,25 +348,29 @@ To-Do List
                   <ListItem
                     key={item.id}
                     divider
+                    onClick={() => toggleComplete(item.id)}
                     sx={{
                       backgroundColor: item.completed ? 'action.hover' : 'background.paper',
-                      transition: 'background-color 0.2s',
+                      transition: 'all 0.2s',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        backgroundColor: 'action.hover'
+                      }
                     }}
                   >
                     <ListItemText
-                      primary={item.text}
-                      primaryTypographyProps={{
-                        sx: {
-                          textDecoration: item.completed ? 'line-through' : 'none',
-                          color: item.completed ? 'text.secondary' : 'text.primary',
-                          wordWrap: 'break-word',
-                          overflowWrap: 'break-word',
-                          wordBreak: 'break-word',
-                          whiteSpace: 'normal',
-                          maxWidth: '100%',
-                        }
-                      }}
-                      onClick={() => toggleComplete(item.id)}
+                      primary={
+                        <Typography
+                          sx={{
+                            textDecoration: item.completed ? 'line-through' : 'none',
+                            color: item.completed ? 'text.secondary' : 'text.primary',
+                            pointerEvents: 'none' // Makes the text not interfere with the parent's click
+                          }}
+                          component="span"
+                        >
+                          {item.text}
+                        </Typography>
+                      }
                       sx={{ 
                         cursor: 'pointer',
                         width: '100%',
@@ -461,44 +380,24 @@ To-Do List
                         }
                       }}
                     />
-                    <ListItemSecondaryAction>
+                    <Stack direction="row" spacing={1} alignItems="center" onClick={(e) => e.stopPropagation()}>
                       <IconButton
                         edge="end"
-                        onClick={() => handleDelete(item.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(item.id);
+                        }}
                         color="error"
+                        size="small"
                       >
-                        <DeleteIcon />
+                        <DeleteIcon fontSize="small" />
                       </IconButton>
-                    </ListItemSecondaryAction>
+                    </Stack>
                   </ListItem>
                 ))}
               </List>
             )}
           </Paper>
-          <Dialog
-            open={openDialog}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={handleCloseDialog}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            maxWidth="xs"
-            fullWidth
-          >
-            <DialogTitle id="alert-dialog-title">
-              {dialogTitle}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                {dialogMessage}
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseDialog} color="primary" autoFocus>
-                OK
-              </Button>
-            </DialogActions>
-          </Dialog>
         </Container>
     );
 }

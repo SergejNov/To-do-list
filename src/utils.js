@@ -51,21 +51,21 @@ export const loadTodosFromStorage = (code) => {
 };
 
 /**
- * Checks if a todo list exists for a given code
- * @param {string} code - The 4-letter code
- * @returns {boolean} True if exists, false otherwise
- */
-export const todoListExists = (code) => {
-  return localStorage.getItem(`todolist_${code}`) !== null;
+ * Checks if a todo list exists for a given code            //!! THIS IS CURRENTLY NOT IN USE !!/
+ * @param {string} code - The 4-letter code           //!! THIS IS CURRENTLY NOT IN USE !!/
+ * @returns {boolean} True if exists, false otherwise //!! THIS IS CURRENTLY NOT IN USE !!/
+ */                           
+export const todoListExists = (code) => {            //!! THIS IS CURRENTLY NOT IN USE !!/
+  return localStorage.getItem(`todolist_${code}`) !== null;    //!! THIS IS CURRENTLY NOT IN USE !!/
 };
 
 /**
  * Gets all existing todo list codes
- * @returns {Array} Array of existing codes
- */
-export const getAllCodes = () => {
-  const codes = [];
-  for (let i = 0; i < localStorage.length; i++) {
+ * @returns {Array} Array of existing codes  /!! THIS IS CURRENTLY NOT IN USE !!/
+ */                                        //!! THIS IS CURRENTLY NOT IN USE !!/
+export const getAllCodes = () => {             //!! THIS IS CURRENTLY NOT IN USE !!/
+  const codes = [];                                   //!! THIS IS CURRENTLY NOT IN USE !!/
+  for (let i = 0; i < localStorage.length; i++) {        //!! THIS  IS CURRENTLY NOT IN USE !!/
     const key = localStorage.key(i);
     if (key && key.startsWith('todolist_')) {
       codes.push(key.replace('todolist_', ''));
